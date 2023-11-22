@@ -9,26 +9,10 @@ It's like having a tech-savvy friend explain code to you in a language you actua
 ## Features
 
 ![Features](./explain-code.png)
+
 ![Features](./up-close.png)
+
 ![Features](./Overall-screen.png)
-
-<!-- <div style="display: flex; justify-content: space-between;">
-    <figure>
-        <img src="./explain-code.png" width="800" style="box-shadow: 0px 4px 8px rgba(0,0,0,0.2);" />
-        <figcaption style="text-align: center;">1. Select Code</figcaption>
-    </figure>
-
-<figure>
-        <img src="./up-close.png" width="800" style="box-shadow: 0px 4px 8px rgba(0,0,0,0.2);" />
-        <figcaption style="text-align: center;">2. View Explanation & Pseudocode</figcaption>
-    </figure>
-
-<figure>
-        <img src="./Overall-screen.png" width="900" style="box-shadow: 0px 4px 8px rgba(0,0,0,0.2);" />
-        <figcaption style="text-align: center;">Full Screen View</figcaption>
-    </figure>
-
-</div> -->
 
 ## Install
 
