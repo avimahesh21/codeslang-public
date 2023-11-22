@@ -4,7 +4,7 @@
   "description": "Transform complex code into easy-to-understand explanations using modern slang, emojis, and simple terms.",
   "publisher": "AvinashMaheshwari",
   "icon": "./codeslang-logo.png",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "repository": {
     "type": "git",
     "url": "https://github.com/avimahesh21/codeslang-public.git"
