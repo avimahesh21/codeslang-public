@@ -10,49 +10,56 @@ export function activate(context: vscode.ExtensionContext) {
       if (editor && !editor.selection.isEmpty) {
         try {
           const text = editor.document.getText(editor.selection);
-          await vscode.window.withProgress(
-            {
-              location: vscode.ProgressLocation.Notification,
-              title: "Generating Explanation (This may take a min)",
-              cancellable: false,
-            },
-            async (progress) => {
-              try {
-                const AIResponse = await getAIExplanation(text);
-                console.log(AIResponse);
-                let explanation;
-                let pseudocode;
-                if (AIResponse.content !== null) {
-                  let literalString = AIResponse.content
-                    .replace(/\n/g, "\\n") // Convert newlines to literal
-                    .replace(/\r/g, "\\r") // Convert carriage returns
-                    .replace(/\t/g, "\\t"); // Convert tabs
-                  console.log(literalString);
-                  const res = JSON.parse(literalString);
-                  console.log(res);
-                  explanation = res.explanation;
-                  pseudocode = res.pseudocode;
-                }
-                console.log(explanation + "\n");
-                console.log(pseudocode);
-                provider.updateWebview(
-                  explanation || ["No Explanation"],
-                  text,
-                  pseudocode
-                );
+          if (text.length <= 2500) {
+            await vscode.window.withProgress(
+              {
+                location: vscode.ProgressLocation.Notification,
+                title: "Generating Explanation (This may take a min)",
+                cancellable: false,
+              },
+              async (progress) => {
+                try {
+                  const AIResponse = await getAIExplanation(text);
+                  console.log(AIResponse);
+                  let explanation;
+                  let pseudocode;
+                  if (AIResponse.content !== null) {
+                    let literalString = AIResponse.content
+                      .replace(/\n/g, "\\n") // Convert newlines to literal
+                      .replace(/\r/g, "\\r") // Convert carriage returns
+                      .replace(/\t/g, "\\t"); // Convert tabs
+                    console.log(literalString);
+                    const res = JSON.parse(literalString);
+                    console.log(res);
+                    explanation = res.explanation;
+                    pseudocode = res.pseudocode;
+                  }
+                  console.log(explanation + "\n");
+                  console.log(pseudocode);
+                  provider.updateWebview(
+                    explanation || ["No Explanation"],
+                    text,
+                    pseudocode
+                  );
 
-                // Focus on the custom sidebar view
-                vscode.commands.executeCommand(
-                  "workbench.view.extension.codeSlang.explainView"
-                );
-              } catch (error) {
-                console.error("Error during AI response processing:", error);
-                vscode.window.showErrorMessage(
-                  "An error occurred while processing the AI response"
-                );
+                  // Focus on the custom sidebar view
+                  vscode.commands.executeCommand(
+                    "workbench.view.extension.codeSlang.explainView"
+                  );
+                } catch (error) {
+                  console.error("Error during AI response processing:", error);
+                  vscode.window.showErrorMessage(
+                    "An error occurred while processing the AI response"
+                  );
+                }
               }
-            }
-          );
+            );
+          } else {
+            // Show an error message if the text is more than 2500 characters
+            vscode.window.showErrorMessage(
+              "Selected code too long. Please select less than 2500 characters"
+            );
+          }
         } catch (error) {
           console.error("Error:", error);
           vscode.window.showErrorMessage(
