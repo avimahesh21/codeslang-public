@@ -10,7 +10,7 @@
     "url": "https://github.com/avimahesh21/codeslang-public.git"
   },
   "engines": {
-    "vscode": "^1.84.0"
+    "vscode": "^1.60.0"
   },
   "categories": [
     "Other"
